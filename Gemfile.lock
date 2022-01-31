@@ -78,6 +78,7 @@ GEM
       xpath (~> 3.2)
     childprocess (4.1.0)
     concurrent-ruby (1.1.9)
+    connection_pool (2.2.5)
     crass (1.0.6)
     erubi (1.10.0)
     ffi (1.15.5)
@@ -169,6 +170,10 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2)
     semantic_range (3.0.0)
+    sidekiq (6.4.0)
+      connection_pool (>= 2.2.2)
+      rack (~> 2.0)
+      redis (>= 4.2.0)
     spring (4.0.0)
     sprockets (4.0.2)
       concurrent-ruby (~> 1.0)
@@ -223,6 +228,7 @@ DEPENDENCIES
   sass-rails (>= 6)
   secure_headers
   selenium-webdriver
+  sidekiq
   spring
   turbolinks (~> 5)
   tzinfo-data

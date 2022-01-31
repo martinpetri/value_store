@@ -5,6 +5,7 @@ ruby '3.0.1'
 gem 'secure_headers'
 gem 'redis'
 gem 'rack-cors'
+gem 'sidekiq'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.4', '>= 6.1.4.4'
