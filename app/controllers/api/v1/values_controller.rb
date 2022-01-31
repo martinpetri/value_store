@@ -14,8 +14,7 @@ class Api::V1::ValuesController < ApplicationController
   rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 
-  before_action :set_topic_by_api_key, only: %i[ create ]
-  before_action :set_topic_by_name, only: %i[ index ]
+  before_action :set_topic
 
   def create
 
@@ -24,14 +23,13 @@ class Api::V1::ValuesController < ApplicationController
     @datasets.each do |dataset|
       @topic.values.create(value: dataset["value"])
     end
-    
+
     dashboard_values = @topic.values.order(created_at: :asc).last(@topic.dashboard_number_of_values)
     dashboard_data =  { "topic": @topic.name,
                         "labels": dashboard_values.map { |v| v.created_at },
                         "values": dashboard_values.map { |v| v.value }
                       }.to_json
 
-    
     ActionCable.server.broadcast "dashboard_channel", dashboard_data
     
     render json: { results: @datasets.count.to_s + ' value(s) successfully saved.'}, status: :ok
@@ -52,18 +50,13 @@ class Api::V1::ValuesController < ApplicationController
   end
 
   private
-  
-    def set_topic_by_api_key
-      api_key = request.headers[:HTTP_API_KEY] || params[:api_key]
-      @topic = Topic.find_by!(api_key: api_key) rescue render_auth_error_response
-    end
 
-    def set_topic_by_name
-      @topic = Topic.find_by!(name: params[:topic_name]) rescue render_unprocessable_entity_response
+    def set_topic
+      @topic = Topic.find_by!(name: request.headers[:HTTP_TOPIC_NAME]) rescue render_unprocessable_entity_response
     end
 
     def value_params
-      params.permit(:api_key, :values[], :topic_name)
+      params.permit(:values[], :topic_name, :number)
     end
 
     def render_unprocessable_entity_response(exception)
@@ -72,10 +65,6 @@ class Api::V1::ValuesController < ApplicationController
 
     def render_not_found_response(exception)
       render json: { error: exception.message }, status: :not_found
-    end
-
-    def render_auth_error_response
-      render json: { error: 'Authorization error' }, status: :unprocessable_entity
     end
 
 end

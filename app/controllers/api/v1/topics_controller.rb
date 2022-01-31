@@ -25,7 +25,7 @@ class Api::V1::TopicsController < ApplicationController
       show_on_dashboard: topic.show_on_dashboard,
       dashboard_name: topic.dashboard_name,
       dashboard_number_of_values: topic.dashboard_number_of_values
-    }
+      }
     end
 
     render json: { topics: topics }.to_json, status: :ok
