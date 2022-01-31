@@ -1,0 +1,25 @@
+<div class="container mx-1 my-3">
+
+<% @topics.each do |topic| 
+    dashboard_values = topic.values.order(created_at: :asc).last(topic.dashboard_number_of_values)
+    data_keys = dashboard_values.map { |v| v.created_at.to_s }
+    data_values = dashboard_values.map { |v| v.value }
+%>
+  <div class=row>
+    <div class=col-4>
+      <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
+        <div class="card-header"><%= topic.dashboard_name %></div>
+        <div class="card-body">
+          <h1>
+          <div id="<%= topic.name %>_display"><%= data_values.last %></div>
+          </h1>
+        </div>
+      </div>
+    </div>
+    <div class=col-8>
+        <canvas class = "lineChart" id="<%= topic.name %>_lineChart" width="200px" height="100px" data-labels="<%= data_keys %>" data-data="<%= data_values %>" ></canvas>
+    </div>    
+  </div>
+<% end %>
+
+</div>

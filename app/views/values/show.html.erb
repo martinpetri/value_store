@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Topic:</strong>
+  <%= @value.topic_id %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @value.value %>
+</p>
+
+<p>
+  <strong>Measured at:</strong>
+  <%= @value.measured_at %>
+</p>
+
+<%= link_to 'Edit', edit_value_path(@value) %> |
+<%= link_to 'Back', values_path %>
