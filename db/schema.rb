@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 2022_01_28_132919) do
     t.boolean "show_on_dashboard"
     t.string "dashboard_name"
     t.integer "dashboard_number_of_values"
+    t.integer "number_of_values_to_keep"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

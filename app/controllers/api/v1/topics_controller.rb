@@ -47,7 +47,7 @@ class Api::V1::TopicsController < ApplicationController
 
   	# Only allow a list of trusted parameters through.
     def topic_params
-      params.permit(:api_key, :name, :description, :show_on_dashboard, :dashboard_name, :dashboard_number_of_values)
+      params.permit(:api_key, :name, :description, :show_on_dashboard, :dashboard_name, :dashboard_number_of_values, :number_of_values_to_keep)
     end
 
     def set_topic

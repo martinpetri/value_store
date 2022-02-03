@@ -58,7 +58,7 @@ document.addEventListener('turbolinks:load', () => {
         element_number = topics[i][1]
         window['lineChart' + element_number].data.labels = topic_labels
         window['lineChart' + element_number].data.datasets[0].data = topic_values
-        window['lineChart' + element_number].update()
+        window['lineChart' + element_number].update('none')
       }
     }    
   }
