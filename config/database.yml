@@ -79,8 +79,18 @@ test:
 # Read https://guides.rubyonrails.org/configuring.html#configuring-a-database
 # for a full overview on how database connection configuration can be specified.
 #
+
 production:
-  <<: *default
+  adapter: postgresql
+  encoding: unicode
   database: value_store_production
-  username: value_store
-  password: <%= ENV['VALUE_STORE_DATABASE_PASSWORD'] %>
+  host: database
+  username: <%= ENV.fetch("POSTGRES_USER") %>
+  password: <%= ENV.fetch("POSTGRES_PASSWORD") %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+# production:
+#   <<: *default
+#   database: value_store_production
+#   username: value_store
+#   password: <%= ENV['VALUE_STORE_DATABASE_PASSWORD'] %>
