@@ -53,7 +53,7 @@ document.addEventListener('turbolinks:load', () => {
     var topic_values = JSON.parse(json_data).values
 
     var display = document.getElementById(topic_name + '_display');
-    display.innerHTML = topic_values[topic_values.length - 1];
+    display.innerHTML = '<h1 class="display-2">' + topic_values[topic_values.length - 1] + '</h2>';
   
     
     for (i = 1; i < topics.length; i++){
