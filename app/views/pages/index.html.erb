@@ -5,13 +5,13 @@
     data_keys = dashboard_values.map { |v| v.created_at.to_s }
     data_values = dashboard_values.map { |v| v.value }
 %>
-  <div class="row border">
-    <div class="col-4 my-5">
+  <div class="row mt-2">
+    <div class="col-4 my-2">
       <div class="card text-white bg-secondary h-100 mb-3" style="max-width: 18rem;">
         <div class="card-header"><%= topic.dashboard_name %></div>
         <div class="card-body">
           <h1>
-          <div id="<%= topic.name %>_display"><%= data_values.last %></div>
+          <div id="<%= topic.name %>_display"><h1 class="display-2"><%= data_values.last %></h1></div>
           </h1>
         </div>
       </div>

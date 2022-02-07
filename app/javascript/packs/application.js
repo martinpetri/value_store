@@ -19,6 +19,7 @@ document.addEventListener('turbolinks:load', () => {
   var element_number = 0
   var topic_name = ''
   var topics = [[]]
+  var line_chart_color = 'rgb(30, 144, 255)'
   
   var allElem = document.getElementsByTagName("*"); 
   for (var i = 0; i < allElem.length; i++) {
@@ -34,6 +35,8 @@ document.addEventListener('turbolinks:load', () => {
         data: {
           labels: JSON.parse(window['ctx' + i].canvas.dataset.labels),
           datasets: [{
+            label: topic_name,
+            borderColor: line_chart_color,
             data: JSON.parse(window['ctx' + i].canvas.dataset.data),
           }]
         },
@@ -50,7 +53,7 @@ document.addEventListener('turbolinks:load', () => {
     var topic_values = JSON.parse(json_data).values
 
     var display = document.getElementById(topic_name + '_display');
-    display.innerHTML = "<h2>" + topic_values[topic_values.length - 1] + "</h2>";
+    display.innerHTML = topic_values[topic_values.length - 1];
   
     
     for (i = 1; i < topics.length; i++){
