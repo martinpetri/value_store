@@ -18,10 +18,9 @@ class Api::V1::ValuesController < ApplicationController
 
   def create
 
-    @datasets = JSON.parse(request.body.read)
-
-    @datasets.each do |dataset|
-      @topic.values.create(value: dataset["value"])
+    values = @json_params["values"]
+    values.each do |v|
+      @topic.values.create(value: v)
     end
 
     dashboard_values = @topic.values.order(created_at: :asc).last(@topic.dashboard_number_of_values)
@@ -32,12 +31,12 @@ class Api::V1::ValuesController < ApplicationController
 
     ActionCable.server.broadcast "dashboard_channel", dashboard_data
     
-    render json: { results: @datasets.count.to_s + ' value(s) successfully saved.'}, status: :ok
+    render json: { results: values.count.to_s + ' value(s) successfully saved.'}, status: :ok
   end
 
   def index
 
-    number = request.headers[:HTTP_NUMBER] || params[:number] || 1
+    number = @json_params[:number] || 1
     values = @topic.values.order(created_at: :asc).last(number)
     values = values.map do |value|
       { value: value.value, created_at: value.created_at.to_formatted_s(:number) }
@@ -52,19 +51,20 @@ class Api::V1::ValuesController < ApplicationController
   private
 
     def set_topic
-      @topic = Topic.find_by!(name: request.headers[:HTTP_TOPIC_NAME]) rescue render_unprocessable_entity_response
+      @json_params = JSON.parse(request.body.read)
+      @topic = Topic.find_by!(name: @json_params["topic"]) rescue render_not_found_response
     end
 
     def value_params
-      params.permit(:values[], :topic_name, :number)
+      params.permit(:topic, :values[], :number)
     end
 
     def render_unprocessable_entity_response(exception)
       render json: exception.record.errors, status: :unprocessable_entity
     end
 
-    def render_not_found_response(exception)
-      render json: { error: exception.message }, status: :not_found
+    def render_not_found_response()
+      render json: { error: 'Can not find topic' }, status: :not_found
     end
 
 end

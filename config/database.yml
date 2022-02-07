@@ -85,8 +85,10 @@ production:
   encoding: unicode
   database: value_store_production
   host: database
-  username: <%= ENV.fetch("POSTGRES_USER") %>
-  password: <%= ENV.fetch("POSTGRES_PASSWORD") %>
+  username: postgres
+  password: postgres
+  # username: <%= ENV.fetch("POSTGRES_USER") %>
+  # password: <%= ENV.fetch("POSTGRES_PASSWORD") %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 # production:

@@ -10,7 +10,7 @@ services:
       - '5432:5432'
     environment:
       - POSTGRES_HOST_AUTH_METHOD=trust
-    # restart: always
+    restart: unless-stopped
     # healthcheck:
     #   test: ["CMD", "pg_isready", "-p", "5432", "-U", "postgres", "-d", "value_store_production"]
   redis:
@@ -18,6 +18,7 @@ services:
     command: redis-server
     volumes:
       - redis:/data
+    restart: unless-stopped
   web:
     build:
       context: .    
@@ -26,6 +27,7 @@ services:
       - app    
     ports:      
       - 80:80
+    restart: unless-stopped
   app:
     build:
       context: .
@@ -41,7 +43,7 @@ services:
       - redis
     environment:
       - DATABASE_HOST=database
-    # restart: always
+    restart: unless-stopped
 
 volumes:
   pgdata:
