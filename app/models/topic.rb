@@ -6,7 +6,7 @@ class Topic < ApplicationRecord
     
     attribute :number_of_values_to_keep, :integer, default: 30
     attribute :dashboard_number_of_values, :integer, default: 10
-    attribute :show_on_dashboard, :boolean, default: false
+    attribute :show_on_dashboard, :boolean, default: true
 
     def set_api_key
         if not self.api_key.present?

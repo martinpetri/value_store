@@ -37,9 +37,9 @@ class Api::V1::TopicsController < ApplicationController
     @topic = Topic.new(topic_params)
 
     if @topic.save then
-      render json: { api_key: @topic.api_key }, status: :ok
+      render json: { name: @topic.name, created_at: @topic.created_at }, status: :ok
     else
-      render json: @topic.errors, status: :unprocessable_entity
+      render json: { errors: @topic.errors }, status: :unprocessable_entity
     end
   end
 

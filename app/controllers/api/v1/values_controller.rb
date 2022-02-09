@@ -64,7 +64,7 @@ class Api::V1::ValuesController < ApplicationController
     end
 
     def render_not_found_response()
-      render json: { error: 'Can not find topic' }, status: :not_found
+      render json: { "error": "Topic not found in value_store" }.to_json, status: :not_found
     end
 
 end

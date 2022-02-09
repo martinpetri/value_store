@@ -55,7 +55,6 @@ document.addEventListener('turbolinks:load', () => {
     var display = document.getElementById(topic_name + '_display');
     display.innerHTML = '<h1 class="display-2">' + topic_values[topic_values.length - 1] + '</h2>';
   
-    
     for (i = 1; i < topics.length; i++){
       if (topics[i][0] == topic_name){
         element_number = topics[i][1]

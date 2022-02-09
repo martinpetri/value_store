@@ -50,3 +50,4 @@ RUN bundle exec rails assets:precompile
 
 CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
 #CMD ["bundle", "exec", "rails", "s"]
+
